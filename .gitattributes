@@ -6,3 +6,15 @@
 *.pkl filter=lfs diff=lfs merge=lfs -text
 *.joblib filter=lfs diff=lfs merge=lfs -text
 *.json filter=lfs diff=lfs merge=lfs -text
+*.yaml filter=lfs diff=lfs merge=lfs -text
+/mlruns/524453741298850637/abd21ae574294edc9bb6d9cb49b5bc4a/metrics/accuracy filter=lfs diff=lfs merge=lfs -text
+/mlruns/524453741298850637/abd21ae574294edc9bb6d9cb49b5bc4a/params/learning_rate filter=lfs diff=lfs merge=lfs -text
+/mlruns/524453741298850637/abd21ae574294edc9bb6d9cb49b5bc4a/params/max_depth filter=lfs diff=lfs merge=lfs -text
+/mlruns/524453741298850637/abd21ae574294edc9bb6d9cb49b5bc4a/params/max_iter filter=lfs diff=lfs merge=lfs -text
+/mlruns/524453741298850637/abd21ae574294edc9bb6d9cb49b5bc4a/params/min_samples_leaf filter=lfs diff=lfs merge=lfs -text
+/mlruns/524453741298850637/abd21ae574294edc9bb6d9cb49b5bc4a/tags/Test_Size filter=lfs diff=lfs merge=lfs -text
+/mlruns/524453741298850637/abd21ae574294edc9bb6d9cb49b5bc4a/tags/Train_Test_Split_Random_State filter=lfs diff=lfs merge=lfs -text
+*.runName filter=lfs diff=lfs merge=lfs -text
+*.name filter=lfs diff=lfs merge=lfs -text
+*.type filter=lfs diff=lfs merge=lfs -text
+*.user filter=lfs diff=lfs merge=lfs -text
