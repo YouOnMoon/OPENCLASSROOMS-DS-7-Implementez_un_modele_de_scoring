@@ -122,3 +122,5 @@
 /mlruns/509665303433376980/e2a5b6cadd6b4c299e9873f7afc9ba9f/params/min_samples_leaf filter=lfs diff=lfs merge=lfs -text
 /mlruns/509665303433376980/e2a5b6cadd6b4c299e9873f7afc9ba9f/tags/Test_Size filter=lfs diff=lfs merge=lfs -text
 /mlruns/509665303433376980/e2a5b6cadd6b4c299e9873f7afc9ba9f/tags/Train_Test_Split_Random_State filter=lfs diff=lfs merge=lfs -text
+/mlruns/509665303433376980/9ca458f15fd5425c85527c8e449e72a0/tags/Test_Size filter=lfs diff=lfs merge=lfs -text
+/mlruns/509665303433376980/9ca458f15fd5425c85527c8e449e72a0/tags/Train_Test_Split_Random_State filter=lfs diff=lfs merge=lfs -text
