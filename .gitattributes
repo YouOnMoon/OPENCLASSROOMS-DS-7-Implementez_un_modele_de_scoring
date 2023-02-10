@@ -713,3 +713,4 @@
 /mlruns/253977780853775306/d7bcd4d1660e41af8041b18ae3a48536/params/smote__k_neighbors filter=lfs diff=lfs merge=lfs -text
 /mlruns/253977780853775306/d7bcd4d1660e41af8041b18ae3a48536/tags/Test_Size filter=lfs diff=lfs merge=lfs -text
 /mlruns/253977780853775306/d7bcd4d1660e41af8041b18ae3a48536/tags/Train_Test_Split_Random_State filter=lfs diff=lfs merge=lfs -text
+*.md filter=lfs diff=lfs merge=lfs -text
