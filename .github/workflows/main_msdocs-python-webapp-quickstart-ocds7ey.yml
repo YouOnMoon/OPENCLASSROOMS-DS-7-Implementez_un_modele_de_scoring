@@ -26,6 +26,8 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
+      - name: Install LFS
+        run: git lfs install
       
       - name: Install dependencies
         run: pip install -r requirements.txt
