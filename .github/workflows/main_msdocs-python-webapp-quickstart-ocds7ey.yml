@@ -30,8 +30,9 @@ jobs:
         run: git lfs install
       
       - name: Install dependencies
-        lfs: 'true'
-        run: pip install -r requirements.txt
+        with:
+          lfs: 'true'
+          run: pip install -r requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       
