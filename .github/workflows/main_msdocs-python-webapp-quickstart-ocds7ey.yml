@@ -63,4 +63,4 @@ jobs:
           app-name: 'msdocs-python-webapp-quickstart-OCDS7EY'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5F73018C12CA4D578525D61CBA75A305 }}
-          run: python -m streamlit run dashboard.py
+          run: python -m uvicorn app:app --reload
