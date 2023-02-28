@@ -64,3 +64,4 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5F73018C12CA4D578525D61CBA75A305 }}
           run: python -m uvicorn app:app --reload
+               python -m streamlit run dashboard.py
