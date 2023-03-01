@@ -66,4 +66,5 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F5BEB8DEB35A48B48FE6A59E591350D3 }}
           
       - name: 'Start Serving App'
-        run: python -m uvicorn app:app --reload
+        run: ls -la
+        #python -m uvicorn app:app --reload
