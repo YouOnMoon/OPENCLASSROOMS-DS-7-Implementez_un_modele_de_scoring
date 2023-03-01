@@ -44,7 +44,9 @@ jobs:
             
       - name: Check Loop
         run: python -m unittest pytest/test_utils.py
-             python -m os.listdir()
+      
+      - name: Check Directories
+        run: python -m os.listdir()
 
   deploy:
     runs-on: ubuntu-latest
