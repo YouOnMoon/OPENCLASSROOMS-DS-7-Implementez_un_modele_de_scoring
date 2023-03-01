@@ -41,8 +41,11 @@ jobs:
           path: |
             . 
             !venv/
-          run: python -m unittest pytest/test_utils.py
-          echo: python -m os.listdir()
+            
+      - uses: actions/upload-artifact@v2
+      - name: Check Loop
+        run: python -m unittest pytest/test_utils.py
+             python -m os.listdir()
 
   deploy:
     runs-on: ubuntu-latest
@@ -66,4 +69,7 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5F73018C12CA4D578525D61CBA75A305 }}
           ressource-group-name: 'msdocs-python-webapp-quickstart'
-          run: python -m uvicorn app:app --reload
+          
+      - uses: azure/webapps-deploy@v2
+      - name: StartUp  
+        run: python -m uvicorn app:app --reload
