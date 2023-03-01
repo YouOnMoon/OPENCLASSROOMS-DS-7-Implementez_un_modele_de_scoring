@@ -26,8 +26,6 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
-      - name: Install LFS
-        run: git lfs install
       
       - name: Install dependencies
         run: pip install -r requirements.txt
@@ -41,12 +39,6 @@ jobs:
           path: |
             . 
             !venv/
-            
-      #- name: Check Loop
-      #  run: python -m unittest pytest/test_utils.py
-      
-      - name: Check Directories
-        run: ls -la
 
   deploy:
     runs-on: ubuntu-latest
@@ -68,8 +60,4 @@ jobs:
         with:
           app-name: 'msdocs-python-webapp-quickstart-OCDS7EY'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5F73018C12CA4D578525D61CBA75A305 }}
-          
-      - uses: azure/webapps-deploy@v2
-      - name: StartUp  
-        run: python -m uvicorn app:app --reload
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F5BEB8DEB35A48B48FE6A59E591350D3 }}
