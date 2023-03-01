@@ -46,7 +46,7 @@ jobs:
       #  run: python -m unittest pytest/test_utils.py
       
       - name: Check Directories
-        run: python -m os.listdir()
+        run: ls -la
 
   deploy:
     runs-on: ubuntu-latest
