@@ -39,12 +39,12 @@ jobs:
           path: |
             . 
             !venv/
-            
-      - name: Check Directories
-        run: ls -la
       
       - name: Delete .gitattributes
         run: rm '.gitattributes'
+      
+      - name: Check Directories
+        run: ls -la
 
   deploy:
     runs-on: ubuntu-latest
