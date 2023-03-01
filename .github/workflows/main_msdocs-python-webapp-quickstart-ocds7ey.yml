@@ -41,6 +41,7 @@ jobs:
           path: |
             . 
             !venv/
+          run: python -m unittest pytest/test_utils.py
 
   deploy:
     runs-on: ubuntu-latest
