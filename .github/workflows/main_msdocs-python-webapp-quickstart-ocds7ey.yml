@@ -42,7 +42,6 @@ jobs:
             . 
             !venv/
             
-      - uses: actions/upload-artifact@v2
       - name: Check Loop
         run: python -m unittest pytest/test_utils.py
              python -m os.listdir()
