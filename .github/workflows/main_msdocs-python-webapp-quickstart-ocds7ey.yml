@@ -42,7 +42,7 @@ jobs:
             . 
             !venv/
           run: python -m unittest pytest/test_utils.py
-               python -m os.listdir()
+          echo: python -m os.listdir()
 
   deploy:
     runs-on: ubuntu-latest
