@@ -64,9 +64,3 @@ jobs:
           app-name: 'msdocs-python-webapp-quickstart-OCDS7EY'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F5BEB8DEB35A48B48FE6A59E591350D3 }}
-          
-      - name: 'Dependecies update'
-        run: pip install -r requirements.txt
-        
-      - name: 'Start server'
-        run: python -m uvicorn app:app --reload
