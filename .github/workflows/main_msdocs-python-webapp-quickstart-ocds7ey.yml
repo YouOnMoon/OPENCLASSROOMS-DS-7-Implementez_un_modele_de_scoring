@@ -16,6 +16,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      
+      - name: Install libgomp1
+        run: sudo apt-get install -y gcc && sudo apt-get install -y libgomp1
 
       - name: Set up Python version
         uses: actions/setup-python@v1
@@ -39,9 +42,6 @@ jobs:
           path: |
             . 
             !venv/
-      - name: Install libgomp1
-        run: sudo apt-get install -y gcc && sudo apt-get install -y libgomp1
-
 
   deploy:
     runs-on: ubuntu-latest
