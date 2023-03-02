@@ -39,8 +39,8 @@ jobs:
           path: |
             . 
             !venv/
-      - name: Install xmllint
-        run: sudo apt-get install -y libgomp1
+      - name: Install libgomp1
+        run: sudo apt-get install -y libgomp1.so.1
 
 
   deploy:
