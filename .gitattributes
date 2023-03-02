@@ -3,7 +3,6 @@ oid sha256:1a1692796af8f2897634eccfbc8f539d605ac58f63b5257541d2ce42eb271da7
 size 732
 *.csv filter=lfs diff=lfs merge=lfs -text
 *.ipynb filter=lfs diff=lfs merge=lfs -text
-*.pyc filter=lfs diff=lfs merge=lfs -text
 *.pkl filter=lfs diff=lfs merge=lfs -text
 *.joblib filter=lfs diff=lfs merge=lfs -text
 *.json filter=lfs diff=lfs merge=lfs -text
