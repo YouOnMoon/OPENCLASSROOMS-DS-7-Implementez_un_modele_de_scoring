@@ -39,12 +39,6 @@ jobs:
           path: |
             . 
             !venv/
-      
-      - name: Delete .gitattributes
-        run: rm '.gitattributes'
-      
-      - name: Check Directories
-        run: ls -la
 
   deploy:
     runs-on: ubuntu-latest
@@ -66,4 +60,4 @@ jobs:
         with:
           app-name: 'msdocs-python-webapp-quickstart-OCDS7EY'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F5BEB8DEB35A48B48FE6A59E591350D3 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C74B52023C5D4538BEE92D9F631B4BFA }}
