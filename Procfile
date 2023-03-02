@@ -1,1 +1,1 @@
-web: sh -c 'cd app && python -m uvicorn app:app'
+web: uvicorn app:app
