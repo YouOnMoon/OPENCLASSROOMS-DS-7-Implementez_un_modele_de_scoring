@@ -1,0 +1,19 @@
+artifact_path: PROJECT_7_OC_DS_EXPERIENCE_REFERENCE_Log_Reg_Class_Weight_Full_Classifier
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.9.13
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.2.1
+mlflow_version: 2.1.0
+model_uuid: 1c37df2ec05d4a29b8f7e1668e2743f7
+run_id: e046c700b1814f5e87c650122816ebba
+utc_time_created: '2023-02-18 04:40:33.300159'

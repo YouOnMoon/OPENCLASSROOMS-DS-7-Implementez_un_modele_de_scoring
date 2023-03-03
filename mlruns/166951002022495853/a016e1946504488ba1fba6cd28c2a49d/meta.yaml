@@ -1,0 +1,15 @@
+artifact_uri: mlruns/166951002022495853/a016e1946504488ba1fba6cd28c2a49d/artifacts
+end_time: 1676691659546
+entry_point_name: ''
+experiment_id: '166951002022495853'
+lifecycle_stage: active
+run_id: a016e1946504488ba1fba6cd28c2a49d
+run_name: Log_Reg_Class_Weight
+run_uuid: a016e1946504488ba1fba6cd28c2a49d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1676691626106
+status: 3
+tags: []
+user_id: eyoun
