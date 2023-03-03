@@ -1,3 +1,1 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5593646544d8656e97feeb52c36061d3507246dcf3ff18e5cfb1a9669332dd97
-size 102
+{"classifier__model__learning_rate": 0.5848931924611136, "classifier__threshold": 0.3}
