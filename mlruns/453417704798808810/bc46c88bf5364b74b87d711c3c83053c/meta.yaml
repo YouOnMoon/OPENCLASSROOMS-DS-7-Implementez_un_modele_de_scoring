@@ -1,0 +1,15 @@
+artifact_uri: mlruns/453417704798808810/bc46c88bf5364b74b87d711c3c83053c/artifacts
+end_time: 1676784936130
+entry_point_name: ''
+experiment_id: '453417704798808810'
+lifecycle_stage: active
+run_id: bc46c88bf5364b74b87d711c3c83053c
+run_name: Demo_LGBM_Class_Weight
+run_uuid: bc46c88bf5364b74b87d711c3c83053c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1676784919964
+status: 3
+tags: []
+user_id: eyoun

@@ -1,0 +1,14 @@
+mlflow
+cffi==1.15.0
+cloudpickle==2.1.0
+dask==2022.10.2
+defusedxml==0.7.1
+graphviz==0.19.2
+imbalanced-learn==0.10.1
+jinja2==3.0.3
+lightgbm==3.3.3
+matplotlib==3.6.0
+pandas==1.5.1
+psutil==5.9.1
+pyarrow==10.0.1
+scikit-cuda==0.5.3
