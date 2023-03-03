@@ -1,0 +1,19 @@
+artifact_path: DEMO_DATA_SAMPLED_DummyClassifier
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.10.10
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.2.1
+mlflow_version: 2.0.1
+model_uuid: 66756d09f2e24a29bd8934ec4af9b313
+run_id: 0c9b9a83b24447c4b71e7dee54f72aa8
+utc_time_created: '2023-02-19 05:19:03.826468'
