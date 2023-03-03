@@ -1,0 +1,15 @@
+artifact_uri: mlruns/166951002022495853/9ec0fff9adf3444db32e0380b1e19d57/artifacts
+end_time: 1676629934323
+entry_point_name: ''
+experiment_id: '166951002022495853'
+lifecycle_stage: active
+run_id: 9ec0fff9adf3444db32e0380b1e19d57
+run_name: DummyClassifier
+run_uuid: 9ec0fff9adf3444db32e0380b1e19d57
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1676629901306
+status: 3
+tags: []
+user_id: eyoun
