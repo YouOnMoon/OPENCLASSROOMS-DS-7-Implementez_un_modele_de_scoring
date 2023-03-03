@@ -1,0 +1,18 @@
+artifact_path: PROJECT_7_OC_DS_EXPERIENCE_REFERENCE_LGBM_Class_Weight_Classifier
+flavors:
+  lightgbm:
+    code: null
+    data: model.pkl
+    lgb_version: 3.3.3
+    model_class: imblearn.pipeline.Pipeline
+  python_function:
+    data: model.pkl
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.lightgbm
+    python_version: 3.9.13
+mlflow_version: 2.1.0
+model_uuid: 83dfa65c4ea74352845650d8eeb798f0
+run_id: ede672b9c1d74e64aace66b26dd39161
+utc_time_created: '2023-02-17 21:39:54.951701'

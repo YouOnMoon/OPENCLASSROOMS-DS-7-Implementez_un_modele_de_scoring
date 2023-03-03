@@ -1,0 +1,4 @@
+Expérience de référence pour notre projet!
+Cette expérience nous permettra de travailler avec un jeux de données pour lequel nous supprimons les variables ayant plus de 18% de valeurs manquantes à l'entraînement, et complète les valeurs manquantes par la médiane de la colonne pour les variables quantitatives.
+Notons que les valeurs manquantes des variables qualitatives sont One-Hot-Encoded comme étant une catégorie à part entière, seuls les variables numériques sont donc impactées.
+Enfin, pour les variables numériques, nous sélectionnons les variables pour lesquels nous avons un coefficient de Pearson supérieur à 0.65 en valeur absolue.
