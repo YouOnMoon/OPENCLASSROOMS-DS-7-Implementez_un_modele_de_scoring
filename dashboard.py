@@ -7,11 +7,6 @@ Cette page est la page de gare, présentant le projet, et nous offrant les liens
 #Importation de streamlit
 import streamlit as st
 
-import uvicorn
-
-from app import app
-
-
 #Configuration des pages de notre application - layout large et sidebar étirée
 st.set_page_config(layout="wide", initial_sidebar_state = 'expanded')
 
@@ -51,7 +46,3 @@ st.write(' ')
 st.write(' ')
 st.caption("_**Younes EL RHAZALI**_")
 st.caption("_Etudiant OpenClassrooms - Parcours Data Scientist_")
-
-#Définition de l'hôte et du port à l'appel du fichier
-if __name__=='__main__':
-    uvicorn.run(app, host = '127.0.0.1', port = 8000)

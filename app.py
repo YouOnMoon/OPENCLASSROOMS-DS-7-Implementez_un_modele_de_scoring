@@ -1291,9 +1291,8 @@ def performance_tracking(input:exp_run):
 
 #Définition de l'hôte et du port à l'appel du fichier
 if __name__=='__main__':
-    host = os.environ['HOSTNAME']
     port = os.environ['PORT']
-    uvicorn.run(app, host = host, port = port)
+    uvicorn.run(app, host = '0.0.0.0', port = port)
 
 #python -m uvicorn app:app --reload
 #Ligne de commande pour servir l'application

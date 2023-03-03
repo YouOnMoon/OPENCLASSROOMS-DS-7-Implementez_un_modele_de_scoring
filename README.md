@@ -108,4 +108,3 @@ Le serveur s'occupe ensuite de charger le jeu de données, l'individu, et le mod
 **Younes EL RHAZALI**
 **Etudiant OpenClassrooms - Projet 7 - Implémentez un modèle de scoring**
 
-
