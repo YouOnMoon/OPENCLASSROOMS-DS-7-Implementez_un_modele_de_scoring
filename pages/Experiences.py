@@ -29,7 +29,7 @@ st.write("Si vous le souhaitez, vous pouvez également supprimer des runs ou des
 @st.cache(suppress_st_warning=True)
 def del_experiences(exp_name):
     deletion_request_input = {'name' : 'any', 'column' : 'any', 'exp_name' : exp_name}
-    deletion_request = requests.post(url='http://127.0.0.1:8000/experiment_start/delete', data = json.dumps(deletion_request_input))
+    deletion_request = requests.post(url='http://ocds7ey.herokuapp.com/experiment_start/delete', data = json.dumps(deletion_request_input))
     deletion_answer = deletion_request.json()
     deleted_exp_name = deletion_answer['exp']
     return deleted_exp_name
@@ -38,7 +38,7 @@ def del_experiences(exp_name):
 @st.cache(suppress_st_warning=True)
 def metrics_displayer(exp_name, SCORE, ACC, REC, F1, AUC, BAL_ACC):
     metrics_request_innput = {'exp_name' : exp_name, 'SCORE' : SCORE, 'ACC' : ACC, 'REC': REC, 'F1' : F1, 'AUC' : AUC, 'BAL_ACC' : BAL_ACC}
-    metrics_request = requests.post(url='http://127.0.0.1:8000/experiments/runs/metrics', data = json.dumps(metrics_request_innput))
+    metrics_request = requests.post(url='http://ocds7ey.herokuapp.com/experiments/runs/metrics', data = json.dumps(metrics_request_innput))
     metrics_answer = metrics_request.json()
     metrics_answer_df = pd.DataFrame(metrics_answer)
     metrics_answer_df = metrics_answer_df.replace(-1, np.nan)
@@ -48,7 +48,7 @@ def metrics_displayer(exp_name, SCORE, ACC, REC, F1, AUC, BAL_ACC):
 @st.cache(suppress_st_warning=True)
 def del_run(exp_name, run_name):
     deletion_request_input = {'exp_name' : exp_name, 'run_name' : run_name}
-    deletion_request = requests.post(url='http://127.0.0.1:8000/experiments/runs/delete', data = json.dumps(deletion_request_input))
+    deletion_request = requests.post(url='http://ocds7ey.herokuapp.com/experiments/runs/delete', data = json.dumps(deletion_request_input))
     deletion_answer = deletion_request.json()
     deleted_run_name = deletion_answer['run']
     return deleted_run_name
@@ -58,7 +58,7 @@ def del_run(exp_name, run_name):
 def metrics_plotter(df, metric):
     df_dict = df.to_dict()
     metric_plot_request_input = {'metric' : metric, 'data' : df_dict}
-    metric_plot_request = requests.post(url = 'http://127.0.0.1:8000/experiments/runs/metrics/compare', data = json.dumps(metric_plot_request_input))
+    metric_plot_request = requests.post(url = 'http://ocds7ey.herokuapp.com/experiments/runs/metrics/compare', data = json.dumps(metric_plot_request_input))
     metric_plot_answer = metric_plot_request.json()
     red = pd.DataFrame(metric_plot_answer['R']).values
     green = pd.DataFrame(metric_plot_answer['G']).values
@@ -71,10 +71,10 @@ def metrics_plotter(df, metric):
 @st.cache(suppress_st_warning=True)
 def saved_figures_plotter(exp_name, run_name):
     figures_request_input = {'exp_name' : exp_name, 'run_name' : run_name}
-    train_roc_request = requests.post(url='http://127.0.0.1:8000/experiments/runs/metrics/train_roc_curve', data = json.dumps(figures_request_input))
-    test_roc_request = requests.post(url='http://127.0.0.1:8000/experiments/runs/metrics/test_roc_curve', data = json.dumps(figures_request_input))
-    train_cm_request = requests.post(url='http://127.0.0.1:8000/experiments/runs/metrics/train_cm', data = json.dumps(figures_request_input))
-    test_cm_request = requests.post(url='http://127.0.0.1:8000/experiments/runs/metrics/test_cm', data = json.dumps(figures_request_input))
+    train_roc_request = requests.post(url='http://ocds7ey.herokuapp.com/experiments/runs/metrics/train_roc_curve', data = json.dumps(figures_request_input))
+    test_roc_request = requests.post(url='http://ocds7ey.herokuapp.com/experiments/runs/metrics/test_roc_curve', data = json.dumps(figures_request_input))
+    train_cm_request = requests.post(url='http://ocds7ey.herokuapp.com/experiments/runs/metrics/train_cm', data = json.dumps(figures_request_input))
+    test_cm_request = requests.post(url='http://ocds7ey.herokuapp.com/experiments/runs/metrics/test_cm', data = json.dumps(figures_request_input))
     train_roc_answer = train_roc_request.json()
     test_roc_answer = test_roc_request.json()
     train_cm_answer = train_cm_request.json()
@@ -109,7 +109,7 @@ def saved_figures_plotter(exp_name, run_name):
 @st.cache(suppress_st_warning=True)
 def feature_importance(exp_name, run_name):
     importance_request_input = {'exp_name' : exp_name, 'run_name' : run_name}
-    feature_importance_request = requests.post(url='http://127.0.0.1:8000/experiments/runs/metrics/feature_importance', data = json.dumps(importance_request_input))
+    feature_importance_request = requests.post(url='http://ocds7ey.herokuapp.com/experiments/runs/metrics/feature_importance', data = json.dumps(importance_request_input))
     feature_importance_answer = feature_importance_request.json()
     red1 = pd.DataFrame(feature_importance_answer['R']).values
     green1 = pd.DataFrame(feature_importance_answer['G']).values
@@ -123,7 +123,7 @@ def feature_importance(exp_name, run_name):
 #pour comparer les modèles au sein des différentes runs, ainsi que visualiser ces métriques.'''
 with st.expander("**Liste des epxériences!**"):
     #Sélection d'une experience - requête de la liste des expériences et sélecteur
-    nb_exp_request = requests.get(url='http://127.0.0.1:8000/experiment_start')
+    nb_exp_request = requests.get(url='http://ocds7ey.herokuapp.com/experiment_start')
     names = nb_exp_request.json()['Names']
     exp = st.selectbox('**Veuillez Sélectionner une éxperience :**', names)
     st.write("Vous avez sélectionné l'expérience: **{}**".format(exp))
@@ -181,7 +181,7 @@ with st.expander("**Liste des epxériences!**"):
 def split_columns(df):
     dict_df = df.to_dict()
     param_request_input = {'metric' : 'any', 'data' : dict_df}
-    param_request = requests.post(url='http://127.0.0.1:8000/experiments/runs/cv_results/param_selector', data = json.dumps(param_request_input))
+    param_request = requests.post(url='http://ocds7ey.herokuapp.com/experiments/runs/cv_results/param_selector', data = json.dumps(param_request_input))
     param_answer = param_request.json()
     metrics = param_answer['metrics']
     params = param_answer['params']
@@ -194,7 +194,7 @@ def split_columns(df):
 def param_metric_plotter(df, param, metric, param_2):
     df_dict = df.to_dict()
     metric_param_input = {'data' : df_dict, 'param' : param, 'metric' : metric, 'param_2' : param_2}
-    param_metric_request = requests.post(url='http://127.0.0.1:8000/experiments/runs/cv_results/param_plotter', data = json.dumps(metric_param_input))
+    param_metric_request = requests.post(url='http://ocds7ey.herokuapp.com/experiments/runs/cv_results/param_plotter', data = json.dumps(metric_param_input))
     param_metric_answer = param_metric_request.json()
     red = pd.DataFrame(param_metric_answer['R']).values
     green = pd.DataFrame(param_metric_answer['G']).values
@@ -216,7 +216,7 @@ st.write("En sélectionnant des hyperparamètres, vous pouvez comparer leurs inf
 with st.expander('**Analyse des hyper_paramètres:**'):
     #Requête de réception des résultats du gridsearch et affichage du tableau
     cv_request_input = {'exp_name' : exp, 'run_name' : run}
-    cv_request_request = requests.post(url='http://127.0.0.1:8000/experiments/runs/cv_results', data = json.dumps(cv_request_input))
+    cv_request_request = requests.post(url='http://ocds7ey.herokuapp.com/experiments/runs/cv_results', data = json.dumps(cv_request_input))
     cv_answer = cv_request_request.json()
     cv_df = pd.DataFrame(cv_answer)
     st.dataframe(cv_df)

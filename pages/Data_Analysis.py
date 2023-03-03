@@ -27,7 +27,7 @@ nous est fortement utile.'''
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def import_dataset(name):
     data_import_input = {'name' : name, 'column' : 'any'}
-    data_import_request = requests.post(url = "http://127.0.0.1:8000/initial_data_select/to_df", data = json.dumps(data_import_input))
+    data_import_request = requests.post(url = "http://ocds7ey.herokuapp.com/initial_data_select/to_df", data = json.dumps(data_import_input))
     data_import_answer = pd.DataFrame(data_import_request.json())
     #de manière à pouvoir recevoir les données, nous devont remplacer les valeurs np.nan (sinon, impossible de les recevoir)
     #Pour cela, nous les remplacons par une valeur abérante côté serveur, et nous les remplacons de nouveau ici
@@ -43,7 +43,7 @@ st.write("Dans le premier onglet, nous avons à notre disposition un sélecteur 
 #Premier expander - permet de sélectionner un jeu de données, et d'afficher le dataframe
 with st.expander("**Sélection des données**"):
     #première requête GET permettant de recevoir la liste des fichiers csv disponibles dans le reprértoire ../inputs
-    res = requests.get(url = "http://127.0.0.1:8000/initial_data_select")
+    res = requests.get(url = "http://ocds7ey.herokuapp.com/initial_data_select")
     expander_options = res.json().keys()
     option = st.selectbox('Veuillez sélectionner un fichier', expander_options)
 
@@ -67,7 +67,7 @@ with st.expander("**Visualisation des données**"):
     column_select = {'name' : str(option), 'column' : str(data_file)}
 
     #Requête d'affichage du plot
-    h1 = requests.post('http://127.0.0.1:8000/initial_data_select/to_figure', data = json.dumps(column_select))
+    h1 = requests.post('http://ocds7ey.herokuapp.com/initial_data_select/to_figure', data = json.dumps(column_select))
     full_channels = h1.json()
 
     #Reconstitution de l'image
@@ -84,7 +84,7 @@ with st.expander("**Visualisation des données**"):
     #colonnes, pour le dataframe sélectionné au premier expander de la même manière
     if st.button('Distribution des coeffcients de corrélation'):
         df_to_corr = {"name" : str(option), "column" : "any"}
-        h2 = requests.post('http://127.0.0.1:8000/initial_data_select/corelations_plotter', data = json.dumps(df_to_corr))
+        h2 = requests.post('http://ocds7ey.herokuapp.com/initial_data_select/corelations_plotter', data = json.dumps(df_to_corr))
         full_channels2 = h2.json()
         red2 = pd.DataFrame(full_channels2['R']).values
         green2 = pd.DataFrame(full_channels2['G']).values

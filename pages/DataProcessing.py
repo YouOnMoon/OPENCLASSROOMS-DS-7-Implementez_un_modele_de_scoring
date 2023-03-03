@@ -48,7 +48,7 @@ with st.expander("**Création d'une nouvelle expérience!**"):
         st.subheader("**Informations sur les expériences précédentes:**")
 
         #Requête pour recevoir les informations sur les précédentes expérience - deux expériences ne peuvent pas avoir le même nom
-        nb_exp_request = requests.get(url='http://127.0.0.1:8000/experiment_start')
+        nb_exp_request = requests.get(url='http://ocds7ey.herokuapp.com/experiment_start')
         nb_exp = nb_exp_request.json()['Count']
         names = nb_exp_request.json()['Names']
         st.write("Nombre d'expériences précédement crées : **{}**.".format(nb_exp))
@@ -75,7 +75,7 @@ with st.expander("**Création d'une nouvelle expérience!**"):
     if st.button('Nouvelle Expérience!'):
         with st.spinner("Expérience en cours de création. En attente du serveur ..."):      
             exp_creation_inputs = {'name' : new_name,'na_values' : nan_ratio, 'na_strategy' : strategy, 'pearson_select' : correlation_thresh,'description' : description}                       
-            exp_creation_request = requests.post(url = 'http://127.0.0.1:8000/experiment_start/create', data = json.dumps(exp_creation_inputs))
+            exp_creation_request = requests.post(url = 'http://ocds7ey.herokuapp.com/experiment_start/create', data = json.dumps(exp_creation_inputs))
             exp_creation_response = exp_creation_request.json()
             exp_id = exp_creation_response['id']
             exp_name = exp_creation_response['name']
@@ -90,7 +90,7 @@ with st.expander("**Création d'une nouvelle expérience!**"):
 def df_request(exp):
     #input de la requête d'affichage des jeux de données dans le sélecteur - nom de l'expérience nécessaire
     experiment_selected_data = {'name' : exp,'na_values' : 0.0, 'na_strategy' : 'None', 'pearson_select' : 0.0,'description' : 'description'}
-    exp_selection_request = requests.post(url = 'http://127.0.0.1:8000/experiment_start/select', data = json.dumps(experiment_selected_data))
+    exp_selection_request = requests.post(url = 'http://ocds7ey.herokuapp.com/experiment_start/select', data = json.dumps(experiment_selected_data))
     exp_selection_response = exp_selection_request.json()
 
     #recéption des jeux de données enchantillonnés et mise sous forme de dataframe
@@ -107,7 +107,7 @@ def df_request(exp):
 def plot_request(df, col, exp):
     #requête avec nom de l'expérience, le jeu de données demandé, et la colonne demandée par le client
     column_select = {'name' : str(df), 'column' : str(col), 'exp_name' : str(exp)}
-    h1 = requests.post('http://127.0.0.1:8000/experiment_start/select/to_figure', data = json.dumps(column_select))
+    h1 = requests.post('http://ocds7ey.herokuapp.com/experiment_start/select/to_figure', data = json.dumps(column_select))
 
     #reception des signaux et reconstitution de l'image
     full_channels = h1.json()
@@ -126,7 +126,7 @@ st.write("Un premier sélecteur nous permet de choisir une expérience, et un se
 st.write("Un échantillon du jeu de données est alors affiché, et il est ensuite possible de sélectionner une colonne pour laquelle nous visualisons la distribution.")
 with st.expander("**Affichage des jeux de données crées!**"):
     #Séléction de l'éxperience, requpete retournant la liste des epxériences disponilbes
-    nb_exp_request2 = requests.get(url='http://127.0.0.1:8000/experiment_start')
+    nb_exp_request2 = requests.get(url='http://ocds7ey.herokuapp.com/experiment_start')
     names2 = nb_exp_request.json()['Names'] 
     exp = st.selectbox('**Veuillez Sélectionner une éxperience :**', names2)
     train, test, target = df_request(exp)
@@ -153,7 +153,7 @@ with st.expander("**Affichage des jeux de données crées!**"):
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def model_request(model_type):
     model_type_input = {'type' : str(model_type)}
-    model_type_request = requests.post(url='http://127.0.0.1:8000/experiment_start/select/runs/model_selection', data = json.dumps(model_type_input))
+    model_type_request = requests.post(url='http://ocds7ey.herokuapp.com/experiment_start/select/runs/model_selection', data = json.dumps(model_type_input))
     model_type_answer = model_type_request.json()
     return model_type_answer
 
@@ -163,7 +163,7 @@ def model_request(model_type):
 @st.cache(suppress_st_warning=True)
 def int_grid(mini, maxi, step, is_exp):
     int_grid_input = {'mini' : float(mini), 'maxi': float(maxi), 'step' : float(step), 'is_exp' : is_exp}
-    input_grid_request = requests.post(url = 'http://127.0.0.1:8000/experiment_start/select/runs/model_selection/int_params', data = json.dumps(int_grid_input))
+    input_grid_request = requests.post(url = 'http://ocds7ey.herokuapp.com/experiment_start/select/runs/model_selection/int_params', data = json.dumps(int_grid_input))
     input_grid_response = list(np.array(input_grid_request.json()['grid']).astype(int).astype(float))
     return input_grid_response
 
@@ -172,7 +172,7 @@ def int_grid(mini, maxi, step, is_exp):
 @st.cache(suppress_st_warning=True)
 def float_grid(mini, maxi, step, is_exp):
     float_grid_input = {'mini' : mini, 'maxi': maxi, 'step' : step, 'is_exp' : is_exp}
-    float_grid_request = requests.post(url = 'http://127.0.0.1:8000/experiment_start/select/runs/model_selection/float_params', data = json.dumps(float_grid_input))
+    float_grid_request = requests.post(url = 'http://ocds7ey.herokuapp.com/experiment_start/select/runs/model_selection/float_params', data = json.dumps(float_grid_input))
     float_grid_response = float_grid_request.json()['grid']
     return float_grid_response
 
@@ -181,7 +181,7 @@ def float_grid(mini, maxi, step, is_exp):
 @st.cache(suppress_st_warning=True)
 def dict_merge(dict_1, dict_2):
     double_dict_input = {'dict_1' : dict_1, 'dict_2' : dict_2}
-    double_dicts_merge_request = requests.post(url='http://127.0.0.1:8000/experiment_start/select/runs/model_selection/merge_params', data = json.dumps(double_dict_input))
+    double_dicts_merge_request = requests.post(url='http://ocds7ey.herokuapp.com/experiment_start/select/runs/model_selection/merge_params', data = json.dumps(double_dict_input))
     double_dicts_merge_response = double_dicts_merge_request.json()
     return double_dicts_merge_response
 
@@ -191,7 +191,7 @@ def dict_merge(dict_1, dict_2):
 @st.cache(suppress_st_warning=True)
 def hyper_param_tuning(train, target, halving_state, json_export, standard_state, pca_state, params, grid_params, model_type, run_name, exp_name):
     tuning_inputs = {'train' : train, 'target' : target, 'halving_state' : halving_state,'json_export' : True, 'standard_state' : standard_state, 'pca_state' : pca_state, 'params' : params, 'grid_params' : grid_params, 'model_type' : model_type, 'run_name' : run_name, 'exp_name' : exp_name}
-    tuning_request = requests.post(url='http://127.0.0.1:8000/experiment_start/select/runs/model_selection/hyper_param_tuning', data = json.dumps(tuning_inputs))
+    tuning_request = requests.post(url='http://ocds7ey.herokuapp.com/experiment_start/select/runs/model_selection/hyper_param_tuning', data = json.dumps(tuning_inputs))
     tuning_response = tuning_request.json()
     return tuning_response
 
@@ -206,7 +206,7 @@ st.write("En particulier, nous pouvons entrer les grilles d'hyperparamètres à 
 with st.expander("**Création d'un nouveau modèle!**"):
     #Nom de la run à considérer
     runs_select_input = {'name' : 'any', 'column' : 'any', 'exp_name' : str(exp)}
-    runs_list_request = requests.post(url='http://127.0.0.1:8000/experiment_start/select/runs', data = json.dumps(runs_select_input))
+    runs_list_request = requests.post(url='http://ocds7ey.herokuapp.com/experiment_start/select/runs', data = json.dumps(runs_select_input))
     runs_list_response = runs_list_request.json()
 
     #Vérification des anciennes run de l'expérience avec erreur si la nouvelle run port le nom d'une ancienne run
@@ -273,7 +273,7 @@ with st.expander("**Création d'un nouveau modèle!**"):
     
     #Merge des dictionnaires d'hyperparamètres manuels et de base 
     double_dict_input = {'dict_1' : model_init_params, 'dict_2' : dict_manual_params}
-    double_dict_request = requests.post(url = 'http://127.0.0.1:8000/experiment_start/select/runs/model_selection/manual_params', data = json.dumps(double_dict_input))
+    double_dict_request = requests.post(url = 'http://ocds7ey.herokuapp.com/experiment_start/select/runs/model_selection/manual_params', data = json.dumps(double_dict_input))
     tuning_inputs = double_dict_request.json()
     
     #Ici, l'utilisateur peut choisir les hyperparamètres à optiiser par validation croisée. Un multisélécteur lui permet de choisir les hyperparamètres, 

@@ -26,7 +26,7 @@ import altair as alt
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def import_dataset(exp_name, run_name, dataset):
     data_import_input = {'exp_name' : exp_name, 'run_name' : run_name, 'dataset' : dataset}
-    data_import_request = requests.post(url = 'http://127.0.0.1:8000/production/import_data', data = json.dumps(data_import_input))
+    data_import_request = requests.post(url = 'http://ocds7ey.herokuapp.com/production/import_data', data = json.dumps(data_import_input))
     data_import_answer = pd.DataFrame(data_import_request.json())
     return data_import_answer
 
@@ -34,7 +34,7 @@ def import_dataset(exp_name, run_name, dataset):
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def import_dataset_filter(exp_name, run_name, dataset, observation, features):
     data_import_input = {'exp_name' : exp_name, 'run_name' : run_name, 'dataset' : dataset, 'observation' : float(observation), 'features' : features}
-    data_import_request = requests.post(url = 'http://127.0.0.1:8000/production/import_data/features_select', data = json.dumps(data_import_input))
+    data_import_request = requests.post(url = 'http://ocds7ey.herokuapp.com/production/import_data/features_select', data = json.dumps(data_import_input))
     data_import_answer = pd.DataFrame(data_import_request.json())
     return data_import_answer
 
@@ -43,7 +43,7 @@ def import_dataset_filter(exp_name, run_name, dataset, observation, features):
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def import_dataset_distribution(exp_name, run_name, dataset, features):
     data_import_input = {'exp_name' : exp_name, 'run_name' : run_name, 'dataset' : dataset, 'features' : features}
-    data_import_request = requests.post(url = 'http://127.0.0.1:8000/production/import_data/features_select/distribution', data = json.dumps(data_import_input))
+    data_import_request = requests.post(url = 'http://ocds7ey.herokuapp.com/production/import_data/features_select/distribution', data = json.dumps(data_import_input))
     data_import_answer = pd.DataFrame(data_import_request.json())
     return data_import_answer
 
@@ -51,7 +51,7 @@ def import_dataset_distribution(exp_name, run_name, dataset, features):
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def prediction(exp_name, run_name, input_data):
     prediction_input = {'exp_name' : exp_name, 'run_name' : run_name, 'data' : input_data}
-    prediction_request = requests.post(url = 'http://127.0.0.1:8000/production/inference', data = json.dumps(prediction_input))
+    prediction_request = requests.post(url = 'http://ocds7ey.herokuapp.com/production/inference', data = json.dumps(prediction_input))
     prediction_answer = prediction_request.json()
     predicted_class = prediction_answer['Prediction']
     probability = prediction_answer['Probability']
@@ -63,7 +63,7 @@ def prediction(exp_name, run_name, input_data):
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def local_explainer_no_plot(exp_name, run_name, input_data):
     prediction_input = {'exp_name' : exp_name, 'run_name' : run_name, 'data' : input_data}
-    prediction_request = requests.post(url = 'http://127.0.0.1:8000/production/inference/shap_explainer/no_plot', data = json.dumps(prediction_input))
+    prediction_request = requests.post(url = 'http://ocds7ey.herokuapp.com/production/inference/shap_explainer/no_plot', data = json.dumps(prediction_input))
     prediction_answer = prediction_request.json()['A']
     return prediction_answer
 
@@ -72,7 +72,7 @@ def local_explainer_no_plot(exp_name, run_name, input_data):
 #@st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def sample_50_predict(exp_name, run_name, dataset):
     prediction_input = {'exp_name' : exp_name, 'run_name' : run_name, 'dataset' : dataset}
-    prediction_request = requests.post(url = 'http://127.0.0.1:8000/production/inference/sample1000', data = json.dumps(prediction_input))
+    prediction_request = requests.post(url = 'http://ocds7ey.herokuapp.com/production/inference/sample1000', data = json.dumps(prediction_input))
     prediction_answer = prediction_request.json()
     prediction = prediction_answer['Prediction']
     probability = prediction_answer['Probability']
@@ -86,7 +86,7 @@ def sample_50_predict(exp_name, run_name, dataset):
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def sample_full_predict(exp_name, run_name, dataset):
     prediction_input = {'exp_name' : exp_name, 'run_name' : run_name, 'dataset' : dataset}
-    prediction_request = requests.post(url = 'http://127.0.0.1:8000/production/inference/full', data = json.dumps(prediction_input))
+    prediction_request = requests.post(url = 'http://ocds7ey.herokuapp.com/production/inference/full', data = json.dumps(prediction_input))
     prediction_answer = prediction_request.json()
     prediction = prediction_answer['Prediction']
     probability = prediction_answer['Probability']
@@ -108,7 +108,7 @@ def sample_full_predict(exp_name, run_name, dataset):
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def model_performance_tracker(exp_name, run_name):
     prediction_input = {'exp_name' : exp_name, 'run_name' : run_name}
-    prediction_request = requests.post(url = 'http://127.0.0.1:8000/prodction/model_performance', data = json.dumps(prediction_input))
+    prediction_request = requests.post(url = 'http://ocds7ey.herokuapp.com/prodction/model_performance', data = json.dumps(prediction_input))
     prediction_answer = pd.DataFrame(prediction_request.json())
     return prediction_answer
 
@@ -117,7 +117,7 @@ def model_performance_tracker(exp_name, run_name):
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def single_col_data_drift(exp_name, run_name, dataset, feature):
     prediction_input = {'exp_name' : exp_name, 'run_name' : run_name, 'dataset' : dataset, 'features' : feature}
-    prediction_request = requests.post(url = 'http://127.0.0.1:8000/production/datadrift/single_column', data = json.dumps(prediction_input))
+    prediction_request = requests.post(url = 'http://ocds7ey.herokuapp.com/production/datadrift/single_column', data = json.dumps(prediction_input))
     prediction_answer = prediction_request.json()
     return prediction_answer
 
@@ -126,7 +126,7 @@ def single_col_data_drift(exp_name, run_name, dataset, feature):
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def full_col_data_drift(exp_name, run_name, dataset):
     prediction_input = {'exp_name' : exp_name, 'run_name' : run_name, 'dataset' : dataset}
-    prediction_request = requests.post(url = 'http://127.0.0.1:8000/production/datadrift/full_column', data = json.dumps(prediction_input))
+    prediction_request = requests.post(url = 'http://ocds7ey.herokuapp.com/production/datadrift/full_column', data = json.dumps(prediction_input))
     prediction_answer = prediction_request.json()['HTML']
     return prediction_answer
 
@@ -134,11 +134,11 @@ st.title('**Mise en production des modèles!**')
 
 st.write("Bienvenue sur notre tableau de bord de Production!")
 
-nb_exp_request = requests.get(url='http://127.0.0.1:8000/experiment_start')
+nb_exp_request = requests.get(url='http://ocds7ey.herokuapp.com/experiment_start')
 names = nb_exp_request.json()['Names']
 exp = st.sidebar.selectbox('**Veuillez Sélectionner une éxperience :**', names)
 run_list_input = {'name' : 'any', 'column' : 'any', 'exp_name' : str(exp)}
-run_list_request = requests.post(url = 'http://127.0.0.1:8000/experiment_start/select/runs', data = json.dumps(run_list_input))
+run_list_request = requests.post(url = 'http://ocds7ey.herokuapp.com/experiment_start/select/runs', data = json.dumps(run_list_input))
 runs = run_list_request.json().keys()
 run = st.sidebar.selectbox('**Veuillez Sélectionner un modèle:**', runs)
 dataset = st.sidebar.selectbox('**Veuillez sélectionner un jeu de données:**', ['Production', 'Test', 'Entraînement'])
