@@ -21,7 +21,6 @@ import sys
 import gc
 import mlflow
 import json
-import pytest
 
 #Librairies de visualisation des données
 import matplotlib.pyplot as plt
