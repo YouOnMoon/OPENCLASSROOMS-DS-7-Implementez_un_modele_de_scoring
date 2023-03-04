@@ -898,8 +898,8 @@ def feature_importance(input:exp_run):
 '''Importe un jeu de donnée d'une run, d'une expérience pour affichage en production, nous pouvons charger le jeu de donnée de train, de tets ou de production (sans targets)'''
 @app.post('/production/import_data')
 def import_data_prod(input:exp_run_data):
-    data = input.dict()
     os.chdir(script_path)
+    data = input.dict()
     exp_name = data['exp_name']
     run_name = data['run_name']
     dataset = data['dataset']
@@ -913,9 +913,9 @@ def import_data_prod(input:exp_run_data):
     if dataset == 'Production':
         path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/test.pkl'
     elif dataset == 'Test':
-        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_test.pkl'
+        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_test.pkl'
     else:
-        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_train.pkl'
+        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_train.pkl'
     df = pd.read_pickle(path).reset_index()
     df_dict = df.to_dict()
     del data, exp_name, run_name, exp_dict, exp_id, run_dict, run_id, path, df, dataset
@@ -942,9 +942,9 @@ def import_data_feature(input:exp_run_features):
     if dataset == 'Production':
         path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/test.pkl'
     elif dataset == 'Test':
-        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_test.pkl'
+        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_test.pkl'
     else:
-        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_train.pkl'
+        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_train.pkl'
     
     #Projection sur l'individu choisi, et les features choisis côté client
     df = pd.read_pickle(path).reset_index()
@@ -974,9 +974,9 @@ def feature_distribution(input:exp_run_single_feature):
     if dataset == 'Production':
         path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/test.pkl'
     elif dataset == 'Test':
-        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_test.pkl'
+        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_test.pkl'
     else:
-        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_train.pkl'
+        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_train.pkl'
     df = pd.read_pickle(path).reset_index()
     value_counts = pd.DataFrame(df[features].value_counts()).to_dict()
     del data, exp_name, run_name, dataset, features, exp_dict, exp_id, run_dict, run_id, path, df
@@ -1032,6 +1032,7 @@ def model_server(input:exp_run_predict):
 
     #renvoi des résultat au client
     final_dict = {'Prediction' : prediction, 'Probability' : score, 'Threshold' : best_thresh}
+    os.chdir(script_path)
     del data, exp_name, run_name, exp_dict, exp_id, run_dict, run_id, path, model, features, prediction, score, tmp_df, n
     gc.collect()
     return final_dict
