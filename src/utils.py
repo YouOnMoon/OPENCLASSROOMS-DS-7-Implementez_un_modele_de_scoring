@@ -162,7 +162,7 @@ Nous retournons un dictionnaire dans lequelles clés sont les noms des runs, et 
 def run_lister(exp_id):
     os.chdir('mlruns')
     os.chdir(exp_id)
-    runs_ids = [rep for rep in os.listdir() if rep != 'meta.yaml']
+    runs_ids = [rep for rep in os.listdir() if rep != 'meta.yaml' and rep != 'tags']
     runs_names = []
     for i in runs_ids:
         os.chdir(i)
