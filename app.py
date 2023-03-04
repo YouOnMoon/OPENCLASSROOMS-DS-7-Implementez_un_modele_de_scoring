@@ -1100,7 +1100,7 @@ def model_server_sample(input:exp_run_data):
     else:
         path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_train.pkl'
     df = pd.read_pickle(path_data).reset_index(drop = True)
-    sample = df.sample(50)
+    sample = df.sample(10)
     index = list(sample.index)
     best_thresh = open("mlruns/" + exp_id + '/' + run_id + '/params/classifier__threshold').read()
     best_thresh = float(best_thresh)
