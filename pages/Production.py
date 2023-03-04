@@ -189,14 +189,14 @@ with st.container():
 st.write(" ")
 st.write("Dans l'onglet suivant, nous pouvons effectuer des prédictions groupées sur plusieurs individus.")
 with st.expander("**Prédictions multiples:**"):
-    mutliple_inference = st.radio("**Veuillez sélectionner une option:**", ('50 Observations', 'Full Dataset'), horizontal = True)
+    mutliple_inference = st.radio("**Veuillez sélectionner une option:**", ('10 Observations', 'Full Dataset'), horizontal = True)
     if mutliple_inference == 'Full Dataset':
         st.warning("**ATTENTION** : Cette option permet de faire des prédictions sur l'ensemble du jeu de données. Cette opération peut prendre beaucoup de temps!")
     else:
-        st.info("Cette option permet de réaliser des prédictions sur 50 observations aléatoires de notre jeu de données!")
+        st.info("Cette option permet de réaliser des prédictions sur 10 observations aléatoires de notre jeu de données!")
     if st.button("**Inférence**"):
         with st.spinner("**Inférence en cours! En attente du serveur ...**"):
-            if mutliple_inference == '50 Observations':
+            if mutliple_inference == '10 Observations':
                 predictions_df, shap_values_1000 = sample_50_predict(exp, run, dataset)
                 st.dataframe(predictions_df.transpose())
                 chart_data_1000 = pd.DataFrame({"shap_values" : shap_values_1000, "features" : dataset_df.columns})
@@ -209,16 +209,18 @@ with st.expander("**Prédictions multiples:**"):
                     color = alt.condition(alt.datum.shap_values > 0, alt.value("blue"), alt.value("red"))).configure_axis(labelFontSize=12).properties(height=600)
                 st.altair_chart(altair_chart_1000, use_container_width=True)
             else:
-                full_predictions_df, shap_values_full = sample_full_predict(exp, run, dataset)
-                chart_data_full = pd.DataFrame({"shap_values" : shap_values_full, "features" : dataset_df.columns})
-                chart_data_full['abs'] = chart_data_full['shap_values'].abs()
-                chart_data_sorted_full = chart_data_full.sort_values(by='abs', ascending = False)
-                chart_data_full_loc = chart_data_sorted_full.iloc[:10]
-                altair_chart_full = alt.Chart(chart_data_full_loc).mark_bar().encode(
-                    x = alt.X('features', axis=alt.Axis(labelAngle=80, labelLimit=500, title = ' '), sort = '-y'), 
-                    y = "shap_values", 
-                    color = alt.condition(alt.datum.shap_values > 0, alt.value("blue"), alt.value("red"))).configure_axis(labelFontSize=12).properties(height=600)
-                st.altair_chart(altair_chart_full, use_container_width=True)        
+                #Option désactivée dans la version light de l'application
+                #full_predictions_df, shap_values_full = sample_full_predict(exp, run, dataset)
+                #chart_data_full = pd.DataFrame({"shap_values" : shap_values_full, "features" : dataset_df.columns})
+                #chart_data_full['abs'] = chart_data_full['shap_values'].abs()
+                #chart_data_sorted_full = chart_data_full.sort_values(by='abs', ascending = False)
+                #chart_data_full_loc = chart_data_sorted_full.iloc[:10]
+                #altair_chart_full = alt.Chart(chart_data_full_loc).mark_bar().encode(
+                    #x = alt.X('features', axis=alt.Axis(labelAngle=80, labelLimit=500, title = ' '), sort = '-y'), 
+                    #y = "shap_values", 
+                    #color = alt.condition(alt.datum.shap_values > 0, alt.value("blue"), alt.value("red"))).configure_axis(labelFontSize=12).properties(height=600)
+                #st.altair_chart(altair_chart_full, use_container_width=True)    
+                st.warning("**Cette option est désactivée dans la version light de l'application pour économiser des ressources computationnelles, merci de sélectionner l'option d'inférence sur 10 observations.**")
 
 st.write(" ")
 st.write("Chaque prédiction effectuée par le modèle est centralisée via MLFlow Tracking, et les performances du modèle sont suivis par une analyse de Data Drift.")
@@ -247,5 +249,7 @@ st.write(" ")
 st.write("Dans l'onglet suivant, il est possible lancer une analyse de Data Drift sur l'ensemble des colonnes du jeu de données de production et d'entraîenement.")
 with st.expander("**Data Drift Report All Columns**"):
     if st.button('**Analyse de DataDrift sur toutes les colonnes**'):
-        data_drift_report_all_columns = full_col_data_drift(exp, run, dataset)
-        components.html(data_drift_report_all_columns, scrolling = True, height = 1250)
+        #Option désactivée sur la version light de l'application
+        #data_drift_report_all_columns = full_col_data_drift(exp, run, dataset)
+        #components.html(data_drift_report_all_columns, scrolling = True, height = 1250)
+        st.warning("**Cette option est désactivée dans la version light de l'application pour des raisons de ressources computationnelles limitées.**")
