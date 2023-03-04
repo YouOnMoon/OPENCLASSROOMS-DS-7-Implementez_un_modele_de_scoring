@@ -1096,9 +1096,9 @@ def model_server_sample(input:exp_run_data):
     if dataset == 'Production':
         path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/test.pkl'
     elif dataset == 'Test':
-        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_test.pkl'
+        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_test.pkl'
     else:
-        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_train.pkl'
+        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_train.pkl'
     df = pd.read_pickle(path_data).reset_index(drop = True)
     sample = df.sample(50)
     index = list(sample.index)
@@ -1156,9 +1156,9 @@ def model_server_full(input:exp_run_data):
     if dataset == 'Production':
         path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/test.pkl'
     elif dataset == 'Test':
-        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_test.pkl'
+        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_test.pkl'
     else:
-        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_train.pkl'
+        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_train.pkl'
     df = pd.read_pickle(path_data).reset_index(drop = True)
     index = list(df.index)
     best_thresh = open("mlruns/" + exp_id + '/' + run_id + '/params/classifier__threshold').read()
@@ -1203,9 +1203,9 @@ def datadrift_single_col(input:exp_run_single_feature):
     if dataset == 'Production':
         path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/test.pkl'
     elif dataset == 'Test':
-        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_test.pkl'
+        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_test.pkl'
     else:
-        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_train.pkl'  
+        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_train.pkl'  
     current_data = pd.DataFrame(pd.read_pickle(path_data)[feature])
     reference = pd.DataFrame(pd.read_pickle('mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/train.pkl')[feature])
     report = Report(metrics=[DataDriftPreset(),])
@@ -1237,9 +1237,9 @@ def datadrift_all_cols(input:exp_run_data):
     if dataset == 'Production':
         path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/test.pkl'
     elif dataset == 'Test':
-        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_test.pkl'
+        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_test.pkl'
     else:
-        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_train.pkl'  
+        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_train.pkl'  
     current_data = pd.read_pickle(path_data)
     reference = pd.read_pickle('mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/train.pkl')
     report = Report(metrics=[DataDriftPreset(),])
