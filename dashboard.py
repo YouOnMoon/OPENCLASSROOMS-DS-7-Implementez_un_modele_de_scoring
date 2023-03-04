@@ -17,6 +17,8 @@ st.sidebar.markdown('Bienvenue sur cette application!')
 st.sidebar.markdown('Pour accéder aux différentes fonctionnalitées, **veuillez sélectionner la page associée ci-dessus!**')
 st.subheader("**Implémentez un modèle de scoring**")
 
+st.info("**ATTENTION** : De manière à pouvoir déployer notre application tout en limitant les ressources computationnelles nécessaires, il s'agit ici de la version 'light' de l'application, bridée en utilisant des jeux de données échantillonnés, et avec certaines fonctionnalités non disponibles.")
+
 st.markdown('**Bienvenue sur la page principale du projet 7 du Parcours Data Scientist OpenClassrooms!**')
 st.write(' ')
 st.write('Pour ce projet, nous allons mettre en place un modèle permettant de définir si une demande de crédit doit être accordéee ou non au regard des différents features associées à une demande en particulier.')
