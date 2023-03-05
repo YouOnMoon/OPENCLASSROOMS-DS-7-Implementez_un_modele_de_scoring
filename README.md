@@ -22,6 +22,7 @@ Pour lancer le dashboard en localhost, placez-vous dans le répertoire de l'appl
 - La seconde version de l'application est la version light-version-deployment. De manière à pouvoir déployer l'API sur le cloud (en l'occurrence la plateforme Heroku), nous avons mis en place cette version allégée, de manière à s'affranchir de Git LFS, et de passer la taille de notre répertoire de travail sous la barre des 500MB (correspondant à la mémoire maximale autorisée pour les machines virtuelles sur Heroku). Ainsi, les fichiers pythons permettant d'afficher le dashboard, d'effectuer les tests unitaires, et les notebooks ne sont pas présents dans cette version (nous ne conservons que le code permettant de servir l'application). Les différents jeux de données initiaux, ainsi que les éléments centralisés via MLFlow sont échantillonnés, et certaines fonctionnalités lourdes sont modifiées (prédictions groupées passées de 50 à 10 observations aléatoires, impossibilité d'effectuer une prédiction sur l'ensemble du jeu de données de production et impossibilité de lancer l'analyse de DataDrift sur l'ensemble du jeu de données de production, seule l'option colonne par colonne est conservée).
 
 **Téléchargement de la version light-version-deployment sur un dépôt local : git clone -b light-version-deployment https://github.com/YouOnMoon/OPENCLASSROOMS-DS-7-Implementez_un_modele_de_scoring.git**
+
 **[Liens vers le Swagger UI de l'API sur le cloud - https://ocds7ey.herokuapp.com/docs](https://ocds7ey.herokuapp.com/docs)**
 
 *NB: Cette version a pour seul but de déployer l'API sur le cloud de manière à limiter les ressources computationnelles nécessaires. Elle ne conserve que 2 modèles dans notre expérience de référence en production, un LGBMClassifier, et une régression logistique. L'ensemble des modèles sont disponibles sur la version main de l’application.*
@@ -31,6 +32,7 @@ Pour lancer le dashboard en localhost, placez-vous dans le répertoire de l'appl
 *NB: De manière à pouvoir livrer le projet avec une taille de fichier raisonnable, c'est également cette version qui correspond à notre deuxième livrable.*
 
 **Téléchargement de la version heavy-version-localhost sur un dépôt local : git clone -b heavy-version-localhost https://github.com/YouOnMoon/OPENCLASSROOMS-DS-7-Implementez_un_modele_de_scoring.git**
+
 **[Liens vers le dashboard déployé sur le cloud - https://youonmoon-openclassrooms-ds-7-implementez-un--dashboard-bhyhm8.streamlit.app/](https://youonmoon-openclassrooms-ds-7-implementez-un--dashboard-bhyhm8.streamlit.app/)**
 
 
