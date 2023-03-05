@@ -21,7 +21,6 @@ import sys
 import gc
 import mlflow
 import json
-import pytest
 
 #Librairies de visualisation des données
 import matplotlib.pyplot as plt
@@ -899,8 +898,8 @@ def feature_importance(input:exp_run):
 '''Importe un jeu de donnée d'une run, d'une expérience pour affichage en production, nous pouvons charger le jeu de donnée de train, de tets ou de production (sans targets)'''
 @app.post('/production/import_data')
 def import_data_prod(input:exp_run_data):
-    data = input.dict()
     os.chdir(script_path)
+    data = input.dict()
     exp_name = data['exp_name']
     run_name = data['run_name']
     dataset = data['dataset']
@@ -914,9 +913,9 @@ def import_data_prod(input:exp_run_data):
     if dataset == 'Production':
         path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/test.pkl'
     elif dataset == 'Test':
-        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_test.pkl'
+        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_test.pkl'
     else:
-        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_train.pkl'
+        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_train.pkl'
     df = pd.read_pickle(path).reset_index()
     df_dict = df.to_dict()
     del data, exp_name, run_name, exp_dict, exp_id, run_dict, run_id, path, df, dataset
@@ -943,9 +942,9 @@ def import_data_feature(input:exp_run_features):
     if dataset == 'Production':
         path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/test.pkl'
     elif dataset == 'Test':
-        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_test.pkl'
+        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_test.pkl'
     else:
-        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_train.pkl'
+        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_train.pkl'
     
     #Projection sur l'individu choisi, et les features choisis côté client
     df = pd.read_pickle(path).reset_index()
@@ -975,9 +974,9 @@ def feature_distribution(input:exp_run_single_feature):
     if dataset == 'Production':
         path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/test.pkl'
     elif dataset == 'Test':
-        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_test.pkl'
+        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_test.pkl'
     else:
-        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_train.pkl'
+        path = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_train.pkl'
     df = pd.read_pickle(path).reset_index()
     value_counts = pd.DataFrame(df[features].value_counts()).to_dict()
     del data, exp_name, run_name, dataset, features, exp_dict, exp_id, run_dict, run_id, path, df
@@ -1033,6 +1032,7 @@ def model_server(input:exp_run_predict):
 
     #renvoi des résultat au client
     final_dict = {'Prediction' : prediction, 'Probability' : score, 'Threshold' : best_thresh}
+    os.chdir(script_path)
     del data, exp_name, run_name, exp_dict, exp_id, run_dict, run_id, path, model, features, prediction, score, tmp_df, n
     gc.collect()
     return final_dict
@@ -1069,8 +1069,8 @@ def model_server_explainer(input:exp_run_predict):
     gc.collect()
     return final_dict
 
-'''A cette URI, nous recevons une requête pour effectuer une inférence sur 1000 individus aléatoirement. 
-Les prédictions sont renvoyés au client, et nous utilisons shap pour renvoyer une intérpetation moyenne sur l'ensemble des 1000
+'''A cette URI, nous recevons une requête pour effectuer une inférence sur 50 individus aléatoirement. 
+Les prédictions sont renvoyés au client, et nous utilisons shap pour renvoyer une intérpetation moyenne sur l'ensemble des 50
 observations. Pour cela, nous effectuons une interprétation locale individuelle, et nous prennons la moyenne des interpétations par 
 features.
 Par soucis de visibilité, seuls les features ayant les importances les plus élevées sont conservées.'''
@@ -1096,9 +1096,9 @@ def model_server_sample(input:exp_run_data):
     if dataset == 'Production':
         path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/test.pkl'
     elif dataset == 'Test':
-        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_test.pkl'
+        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_test.pkl'
     else:
-        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_train.pkl'
+        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_train.pkl'
     df = pd.read_pickle(path_data).reset_index(drop = True)
     sample = df.sample(50)
     index = list(sample.index)
@@ -1156,9 +1156,9 @@ def model_server_full(input:exp_run_data):
     if dataset == 'Production':
         path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/test.pkl'
     elif dataset == 'Test':
-        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_test.pkl'
+        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_test.pkl'
     else:
-        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_train.pkl'
+        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_train.pkl'
     df = pd.read_pickle(path_data).reset_index(drop = True)
     index = list(df.index)
     best_thresh = open("mlruns/" + exp_id + '/' + run_id + '/params/classifier__threshold').read()
@@ -1203,9 +1203,9 @@ def datadrift_single_col(input:exp_run_single_feature):
     if dataset == 'Production':
         path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/test.pkl'
     elif dataset == 'Test':
-        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_test.pkl'
+        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_test.pkl'
     else:
-        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_train.pkl'  
+        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_train.pkl'  
     current_data = pd.DataFrame(pd.read_pickle(path_data)[feature])
     reference = pd.DataFrame(pd.read_pickle('mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/train.pkl')[feature])
     report = Report(metrics=[DataDriftPreset(),])
@@ -1237,9 +1237,9 @@ def datadrift_all_cols(input:exp_run_data):
     if dataset == 'Production':
         path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/test.pkl'
     elif dataset == 'Test':
-        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_test.pkl'
+        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_test.pkl'
     else:
-        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/X_train.pkl'  
+        path_data = 'mlruns/' + exp_id + '/' + run_id + '/artifacts/train_test/X_train.pkl'  
     current_data = pd.read_pickle(path_data)
     reference = pd.read_pickle('mlruns/' + exp_id + '/' + run_id + '/artifacts/preprocessed/train.pkl')
     report = Report(metrics=[DataDriftPreset(),])
@@ -1291,9 +1291,8 @@ def performance_tracking(input:exp_run):
 
 #Définition de l'hôte et du port à l'appel du fichier
 if __name__=='__main__':
-    host = os.environ['HOSTNAME']
     port = os.environ['PORT']
-    uvicorn.run(app, host = host, port = port)
+    uvicorn.run(app, host = '0.0.0.0', port = port)
 
 #python -m uvicorn app:app --reload
 #Ligne de commande pour servir l'application

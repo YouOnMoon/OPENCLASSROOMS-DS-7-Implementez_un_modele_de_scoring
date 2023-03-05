@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7d5485438f7f8d1f6084669278ce575bba1d3a7ced3fc2894c74702e5f0bd8c8
-size 81
+mlflow<3,>=2.1
+cloudpickle==2.0.0
+imbalanced-learn==0.10.1
+scikit-learn==1.2.1
