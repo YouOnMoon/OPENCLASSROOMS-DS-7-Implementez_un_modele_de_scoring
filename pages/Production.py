@@ -140,7 +140,7 @@ exp = st.sidebar.selectbox('**Veuillez Sélectionner une éxperience :**', names
 run_list_input = {'name' : 'any', 'column' : 'any', 'exp_name' : str(exp)}
 run_list_request = requests.post(url = 'http://ocds7ey.herokuapp.com/experiment_start/select/runs', data = json.dumps(run_list_input))
 runs = run_list_request.json().keys()
-run = st.sidebar.selectbox('**Veuillez Sélectionner un modèle:**', runs)
+run = st.sidebar.selectbox('**Veuillez Sélectionner un modèle:**', np.setdiff1d(np.array(list(runs)), np.array(['DummyClassifier'])))
 dataset = st.sidebar.selectbox('**Veuillez sélectionner un jeu de données:**', ['Production', 'Test', 'Entraînement'])
 dataset_df = import_dataset(exp, run, dataset).drop(['index'], axis = 1)
 

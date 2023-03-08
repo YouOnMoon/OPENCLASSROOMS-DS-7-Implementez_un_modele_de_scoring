@@ -221,16 +221,19 @@ with st.expander('**Analyse des hyper_paramètres:**'):
     cv_df = pd.DataFrame(cv_answer)
     st.dataframe(cv_df)
 
+    st.info("**ATTENTION** : Pour des raisons de ressources computationnelles limitées côté serveur, nous n'affichons pas les nuages de points des métriques en fonction des hyperparamètres dans cette version, ni l'interprétation globale des modèles.")
+    #Pour des raisons de limitation des ressources computatinnelles côté serveur, nous n'affichons pas les features importanes et les plots ci-dessous sur la versoin light
+
     #Sélection des métriques et hyperparamètres, et affichage du plot
-    metrics, params = split_columns(cv_df)
-    X_param = st.selectbox("**Sélection du premier paramètre:**", params)
-    Y_param = st.selectbox("**Sélection du second paramètre:**", params)
-    metric_select = st.selectbox("**Sélection de la métrique:**", metrics)
-    param_metric_fig = param_metric_plotter(cv_df, X_param, metric_select, Y_param)
-    st.image(param_metric_fig, use_column_width=True)
+    #metrics, params = split_columns(cv_df)
+    #X_param = st.selectbox("**Sélection du premier paramètre:**", params)
+    #Y_param = st.selectbox("**Sélection du second paramètre:**", params)
+    #metric_select = st.selectbox("**Sélection de la métrique:**", metrics)
+    #param_metric_fig = param_metric_plotter(cv_df, X_param, metric_select, Y_param)
+    #st.image(param_metric_fig, use_column_width=True)
 
     #Affichage des features importances
-    st.subheader('**Features importance du modèle séléctionné:**')
-    feature_importance_plot = feature_importance(exp, run)
-    st.image(feature_importance_plot)
+    #st.subheader('**Features importance du modèle séléctionné:**')
+    #feature_importance_plot = feature_importance(exp, run)
+    #st.image(feature_importance_plot)
 
