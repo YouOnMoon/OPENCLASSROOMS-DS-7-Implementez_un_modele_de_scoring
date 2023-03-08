@@ -221,6 +221,9 @@ with st.expander("**Création d'un nouveau modèle!**"):
     
     #Choix du type de classifieur - Logistic regression, xgboost, histgradientboosting classifier ou LGBMClassifier    
     model_type = st.selectbox("**Veuillez sélectionner le type de modèle:**", ['HistGradientBooster', 'LightGBM', 'LogisticRegression'])
+
+    #Veriosn light de l'application, model_type == LogReg quoi qu'il en soit 
+    model_type = 'LogisticRegression'
     
     #Liste des hyperparamètres du modèle sélectionné
     model_init_params = model_request(model_type)
