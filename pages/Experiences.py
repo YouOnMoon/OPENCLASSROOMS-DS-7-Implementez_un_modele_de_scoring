@@ -214,14 +214,15 @@ st.write("En sélectionnant des hyperparamètres, vous pouvez comparer leurs inf
 #Nous affichons également les résultats d'interpétation globale des modèles, via les features importances
 #loggés via mlflow.'''
 with st.expander('**Analyse des hyper_paramètres:**'):
-    #Requête de réception des résultats du gridsearch et affichage du tableau
-    cv_request_input = {'exp_name' : exp, 'run_name' : run}
-    cv_request_request = requests.post(url='http://ocds7ey.herokuapp.com/experiments/runs/cv_results', data = json.dumps(cv_request_input))
-    cv_answer = cv_request_request.json()
-    cv_df = pd.DataFrame(cv_answer)
-    st.dataframe(cv_df)
-
     st.info("**ATTENTION** : Pour des raisons de ressources computationnelles limitées côté serveur, nous n'affichons pas les nuages de points des métriques en fonction des hyperparamètres dans cette version, ni l'interprétation globale des modèles.")
+    #Requête de réception des résultats du gridsearch et affichage du tableau
+    #cv_request_input = {'exp_name' : exp, 'run_name' : run}
+    #cv_request_request = requests.post(url='http://ocds7ey.herokuapp.com/experiments/runs/cv_results', data = json.dumps(cv_request_input))
+    #cv_answer = cv_request_request.json()
+    #cv_df = pd.DataFrame(cv_answer)
+    #st.dataframe(cv_df)
+
+    
     #Pour des raisons de limitation des ressources computatinnelles côté serveur, nous n'affichons pas les features importanes et les plots ci-dessous sur la versoin light
 
     #Sélection des métriques et hyperparamètres, et affichage du plot

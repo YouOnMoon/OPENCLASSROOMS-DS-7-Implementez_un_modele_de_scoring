@@ -204,6 +204,7 @@ st.write("Dans l'onglet suivant, nous pouvons créer de nouvelles runs au sein d
 st.write("Le modèle est entièrement customisable dans cet onglet. Nous pouvons choisir le type de classifieur, entrer des hyperparamètres [...].")
 st.write("En particulier, nous pouvons entrer les grilles d'hyperparamètres à optimiser par validation croisée, et les préprocesseurs disponibles.")
 with st.expander("**Création d'un nouveau modèle!**"):
+    st.info("**ATTENTION**: Pour des raisons de ressources computationnelles sur cette version côté serveur, il n'est possible d'entraîner que des régressions logistiques avec la méthode Class_Weight, sans PCA. Pour accéder à toutes les fonctionnnalités, merci d'utiliser la version complète de l'application.")
     #Nom de la run à considérer
     runs_select_input = {'name' : 'any', 'column' : 'any', 'exp_name' : str(exp)}
     runs_list_request = requests.post(url='http://ocds7ey.herokuapp.com/experiment_start/select/runs', data = json.dumps(runs_select_input))
@@ -356,6 +357,12 @@ with st.expander("**Création d'un nouveau modèle!**"):
             with st.spinner("Run en cours! En attente du serveur ..."):  
                 train_dict = train.to_dict()
                 target_dict = target.to_dict()
+
+                #Modification des types de préproecsseurs pour des raisons de ressources computationnelles limitées sur cette version
+                imba_state = True
+                pca_state = True
+                pca_state = False
+                model_type = 'logreg'
                 response = hyper_param_tuning(train_dict, target_dict, imba_state, True, standard_state, pca_state, model_init_params, dict_grid_params, model_type, new_run_name, exp)
                 st.write(response)
                 st.success('Modèle entraîné avec succès. Nom de la run : {}'.format(new_run_name))
