@@ -97,7 +97,7 @@ st.write("Le premier onglet liste l'ensemble des demandes de crédit, et fournit
 
 #Création de trois colonnes d'affichage des données
 with st.expander("**Liste de toutes les demandes de crédit en cours:**"):
-    st.subheader("**Esemble des demandes de crédit au complet!**")
+    st.subheader("**Ensemble des demandes de crédit au complet!**")
     st.write("Dans ce tableau, chaque ligne identifiée par son numéro correspond à une demande de crédit, et chaque colonne correspond à une information client particulière.")
     st.dataframe(dataset_df, use_container_width=True)
 
